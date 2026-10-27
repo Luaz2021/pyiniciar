@@ -1,0 +1,30 @@
+name: Bloqueo Automatico de Pull Requests Externos
+
+on:
+  pull_request_target:
+    types: [opened, reopened]
+
+permissions:
+  pull-requests: write
+
+jobs:
+  close-pr:
+    if: github.event.pull_request.user.login != github.repository_owner
+    runs-on: ubuntu-latest
+    steps:
+      - name: Comentar y cerrar Pull Request externo
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: "Gracias por tu interes en **pyiniciar**. Este repositorio es 100% Open Source para lectura, descarga y uso libre, pero por politica de estabilidad e integridad del codigo **no acepta Pull Requests ni modificaciones externas**. El Pull Request se cerrara automaticamente."
+            });
+            await github.rest.pulls.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_request_number: context.issue.number,
+              state: "closed"
+            });

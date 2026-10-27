@@ -1,0 +1,41 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "pyiniciar"
+version = "0.1.0"
+description = "Inicializador, diagnosticador y rescatador forense de entornos Python multiplataforma en espanol, impulsado por uv."
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.10"
+authors = [
+    { name = "Alexander Martinez" }
+]
+keywords = ["python", "cli", "uv", "virtualenv", "venv", "español", "starter", "pyiniciar", "pyini"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Education",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Software Development :: Build Tools",
+]
+dependencies = [
+    "uv>=0.5.0",
+]
+
+[project.scripts]
+pyiniciar = "pyiniciar.cli:main"
+pythoniniciar = "pyiniciar.cli:main"
+pyini = "pyiniciar.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/pyiniciar"]
